@@ -1,0 +1,43 @@
+/* Base Application Styles */
+html, body
+{
+  margin: 0;
+}
+
+.page
+{
+}
+
+$height: 640px;
+
+.chess__board
+{
+  width: $height;
+  height: $height;
+  display: block;
+  margin: 50px;
+  border: 5px solid #333;
+}
+
+.chess__square
+{
+  width: ($height / 8);
+  height: ($height / 8);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.chess__knight
+{
+  width: ($height / 8) - 20;
+  height: ($height / 8) - 20;
+  margin: 10px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+  /* top: 55px;
+  left: 55px + 80; */
+  top: 0;
+  left: 0;
+  cursor: move;
+}

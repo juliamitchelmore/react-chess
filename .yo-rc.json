@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "reactChess",
+    "style": "scss",
+    "postcss": false
+  }
+}
