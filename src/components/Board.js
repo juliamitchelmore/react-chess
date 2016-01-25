@@ -7,23 +7,32 @@ const Board = React.createClass({
         //set background colour for squares
         //each row alternates starting on black or white, and then alternates colour
         var squares = [];
-        var startBlack = true, x = -1, y = 0;
+        var startBlack = true, y = -1, x = 0;
         for(var i = 0; i < 8*8; i++)
         {
             //new row = new settings
             if(i % 8 == 0)
             {
                 startBlack = !startBlack;
-                x++;
-                y = 0;
+                y++;
+                x = 0;
             }
 
             //alternate colours within row
             var bgColor = (i % 2 == 0 ? startBlack : !startBlack);
+            var highlight = false;
 
-            squares.push(<Square key={i} background={bgColor} x={x} y={y} />)
+            this.props.options.forEach(function(option)
+            {
+                if(option.x == x && option.y == y)
+                {
+                    highlight = true;
+                }
+            });
 
-            y++;
+            squares.push(<Square key={i} background={bgColor} x={x}  y={y}highlight={highlight} />)
+
+            x++;
         }
 
         return (

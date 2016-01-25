@@ -10,6 +10,11 @@ const Square = React.createClass({
     render() {
         var bgColor = this.props.background ? 'black' : 'white';
 
+        if(this.props.highlight)
+        {
+            bgColor = 'yellow';
+        }
+
         return (
           <div className="chess__square" style={{backgroundColor: bgColor}}></div>
         );
