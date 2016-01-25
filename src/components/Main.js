@@ -4,12 +4,17 @@ require('styles/App.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import ChessStore from '../stores/ChessStore';
+
+import ChessActions from '../actions/ChessActions';
+
 import Board from './Board';
 import Knight from './Knight';
 
 const App = React.createClass({
     getInitialState() {
         return {
+            coords: ChessStore.getAll(),
             knightLeft: '',
             knightTop: ''
         }
@@ -67,6 +72,10 @@ const App = React.createClass({
         var mouseXCoord = Math.floor((this.mouseX - boardLeft) / (this.board.clientWidth / 8)),
             mouseYCoord = Math.floor((this.mouseY - boardTop) / (this.board.clientHeight / 8));
 
+        // ----------- FLUXXXXX -------------
+        ChessActions.update(mouseXCoord, mouseYCoord);
+        // ----------- END FLUX -------------
+
         //if mouse outside board, snap back to last position. else, snap the knight to the middle of the square
         var snapX = this.insideX && this.insideY ? mouseXCoord * (this.board.clientWidth / 8) + boardLeft : this.knightLastX,
             snapY = this.insideY && this.insideX ? mouseYCoord * (this.board.clientHeight / 8) + boardTop : this.knightLastY;
@@ -83,10 +92,12 @@ const App = React.createClass({
     },
 
     render() {
+        var coords = this.state.coords;
+
         return (
         <div className="page" onMouseMove={this.handleMouseMove} onMouseUp={this.destroy}>
             <Board ref="board"/>
-            <Knight left={this.state.knightLeft} top={this.state.knightTop} dragInit={this.dragInit} ref="knight"/>
+            <Knight left={this.state.knightLeft} top={this.state.knightTop} x={coords.x} y={coords.y} dragInit={this.dragInit} ref="knight"/>
         </div>
         )
     }
