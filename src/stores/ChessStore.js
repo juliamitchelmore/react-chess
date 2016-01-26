@@ -9,7 +9,6 @@ var _coords = {};
 var _options = [];
 
 function create(coords) {
-    console.log(coords);
     if(coords)
     {
         _coords.x = coords.x;
@@ -29,41 +28,19 @@ function update(x, y) {
 }
 
 function calculateDrop(x, y) {
-    //+2h/+1v, +2h/-1v, -2h/+1v, -2h/-1v, +1h/+2v, +1h/-2v, -1h/+2v, -1h/-2v
+    var possibleMoves = [[2,1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1,2], [-1,-2]];
 
     _options = [];
 
-    if(x + 2 < 8 && y + 1 < 8)
+    for(var i = 0; i < possibleMoves.length; i++)
     {
-        _options.push({x: x+2, y: y+1});
-    }
-    if(x + 2 < 8 && y - 1 >= 0)
-    {
-        _options.push({x: x+2, y: y-1});
-    }
-    if(x - 2 >= 0 && y + 1 < 8)
-    {
-        _options.push({x: x-2, y: y+1});
-    }
-    if(x - 2 >= 0 && y - 1 >= 0)
-    {
-        _options.push({x: x-2, y: y-1});
-    }
-    if(x + 1 < 8 && y + 2 < 8)
-    {
-        _options.push({x: x+1, y: y+2});
-    }
-    if(x + 1 < 8 && y - 2 >= 0)
-    {
-        _options.push({x: x+1, y: y-2});
-    }
-    if(x - 1 >= 0 && y + 2 < 8)
-    {
-        _options.push({x: x-1, y: y+2});
-    }
-    if(x - 1 >= 0 && y - 2 >= 0)
-    {
-        _options.push({x: x-1, y: y-2});
+        var moveX = x + possibleMoves[i][0],
+            moveY = y + possibleMoves[i][1];
+
+        if(moveX < 8 && moveX >= 0 && moveY < 8 && moveY >= 0)
+        {
+            _options.push({x: moveX, y: moveY});
+        }
     }
 }
 
@@ -90,7 +67,7 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case ChessConstants.CHESS_CREATE:
         var coords = action.coords;
-        
+
         create(coords);
         ChessStore.emitChange();
       break;

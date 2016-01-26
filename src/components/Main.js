@@ -104,8 +104,9 @@ const App = React.createClass({
 
                     // ----------- FLUXXXXX -------------
                     ChessActions.update(mouseXCoord, mouseYCoord);
-                    cookie.save('saveCoord', {x: mouseXCoord, y: mouseYCoord});
                     // ----------- END FLUX -------------
+
+                    cookie.save('saveCoord', {x: mouseXCoord, y: mouseYCoord}); //persist data
                 }
             })
 
