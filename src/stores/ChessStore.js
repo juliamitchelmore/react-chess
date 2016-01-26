@@ -8,6 +8,7 @@ var CHANGE_EVENT = 'change';
 var _coords = {};
 var _options = [];
 
+//set initial coordinates from cookie (or 0,0)
 function create(coords) {
     if(coords)
     {
@@ -27,6 +28,7 @@ function update(x, y) {
     _coords.y = y;
 }
 
+//calculate the possible positions where the knight can be placed
 function calculateDrop(x, y) {
     var possibleMoves = [[2,1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1,2], [-1,-2]];
 
@@ -49,6 +51,7 @@ function clearHighlight() {
     _options = [];
 }
 
+//flux store helpers
 var ChessStore = assign({}, EventEmitter.prototype, {
   getCoords: function() {
     return _coords;
@@ -63,6 +66,7 @@ var ChessStore = assign({}, EventEmitter.prototype, {
   }
 });
 
+//register dispatch event
 AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case ChessConstants.CHESS_CREATE:

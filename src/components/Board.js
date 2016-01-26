@@ -31,7 +31,7 @@ const Board = React.createClass({
                 }
             });
 
-            //highlight current square on drag
+            //highlight current square on drag so you remember where you started
             var currentSquare = false;
             if(this.props.coords.x == x && this.props.coords.y == y && this.props.options.length > 0)
             {
