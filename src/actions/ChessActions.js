@@ -2,10 +2,11 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import ChessConstants from '../constants/ChessConstants';
 
 const ChessActions = {
-    create: function()
+    create: function(coords)
     {
         AppDispatcher.dispatch({
-            actionType: ChessConstants.CHESS_CREATE
+            actionType: ChessConstants.CHESS_CREATE,
+            coords: coords
         });
     },
 

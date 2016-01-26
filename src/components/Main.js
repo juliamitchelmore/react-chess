@@ -3,6 +3,7 @@ require('styles/App.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import cookie from 'react-cookie';
 
 import ChessStore from '../stores/ChessStore';
 import ChessActions from '../actions/ChessActions';
@@ -16,18 +17,22 @@ const App = React.createClass({
             coords: ChessStore.getCoords(),
             options: ChessStore.getOptions(),
             knightLeft: '',
-            knightTop: ''
+            knightTop: '',
+            savedCoords: cookie.load('saveCoord')
         }
     },
 
     componentDidMount() {
-        this.dragging = false;
-        this.knightLastX = 55;
-        this.knightLastY = 55;
-
         // ----------- FLUXXXXX -------------
-        ChessActions.create();
+        ChessActions.create(this.state.savedCoords);
         // ----------- END FLUX -------------
+
+        this.dragging = false;
+        this.board = ReactDOM.findDOMNode(this.refs.board);
+        var squareWidth = this.board.clientWidth / 8;
+
+        this.knightLastX = 55 + (squareWidth * this.state.coords.x);
+        this.knightLastY = 55 + (squareWidth * this.state.coords.y);
 
         return (
             this.setState({
@@ -99,6 +104,7 @@ const App = React.createClass({
 
                     // ----------- FLUXXXXX -------------
                     ChessActions.update(mouseXCoord, mouseYCoord);
+                    cookie.save('saveCoord', {x: mouseXCoord, y: mouseYCoord});
                     // ----------- END FLUX -------------
                 }
             })

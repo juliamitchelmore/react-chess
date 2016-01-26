@@ -30,7 +30,7 @@ const Board = React.createClass({
                 }
             });
 
-            squares.push(<Square key={i} background={bgColor} x={x}  y={y}highlight={highlight} />)
+            squares.push(<Square key={i} background={bgColor} x={x} y={y} highlight={highlight} />)
 
             x++;
         }

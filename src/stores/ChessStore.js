@@ -8,9 +8,18 @@ var CHANGE_EVENT = 'change';
 var _coords = {};
 var _options = [];
 
-function create() {
-    _coords.x = 0;
-    _coords.y = 0;
+function create(coords) {
+    console.log(coords);
+    if(coords)
+    {
+        _coords.x = coords.x;
+        _coords.y = coords.y;
+    }
+    else
+    {
+        _coords.x = 0;
+        _coords.y = 0;
+    }
 }
 
 //store new coordinate
@@ -80,7 +89,9 @@ var ChessStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case ChessConstants.CHESS_CREATE:
-        create();
+        var coords = action.coords;
+        
+        create(coords);
         ChessStore.emitChange();
       break;
 
