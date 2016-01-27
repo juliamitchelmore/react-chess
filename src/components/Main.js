@@ -16,7 +16,6 @@ const App = React.createClass({
     getInitialState() {
         return {
             coords: ChessStore.getCoords(),
-            options: ChessStore.getOptions(),
             knightLeft: '',
             knightTop: '',
             savedCoords: cookie.load('saveCoord')
@@ -26,12 +25,11 @@ const App = React.createClass({
     componentDidMount() {
         this.dragging = false;
         this.board = ReactDOM.findDOMNode(this.refs.board);
-        var squareWidth = this.board.clientWidth / 8;
 
         //initialise knight & move to stored location (from cookie)
         ChessActions.create(this.state.savedCoords);
-        this.knightLastX = 55 + (squareWidth * this.state.coords.x);
-        this.knightLastY = 55 + (squareWidth * this.state.coords.y);
+        this.knightLastX = 55 + ((this.board.clientWidth / 8) * this.state.coords.x);
+        this.knightLastY = 55 + ((this.board.clientHeight / 8) * this.state.coords.y);
 
         return (
             this.setState({
@@ -41,7 +39,7 @@ const App = React.createClass({
         )
     },
 
-    //on picking up the knight on the board, calculate the possible drop locations 
+    //on picking up the knight on the board, calculate the possible drop locations
     dragInit() {
         //allow knight to be dragged around the page by the cursor
         var knight = ReactDOM.findDOMNode(this.refs.knight);
@@ -62,7 +60,7 @@ const App = React.createClass({
             boardTop = this.board.offsetTop + 5;
         this.insideX = this.mouseX >= boardLeft && this.mouseX <= boardLeft + this.board.clientWidth;
         this.insideY = this.mouseY >= boardTop && this.mouseY <=  boardTop + this.board.clientHeight;
-
+  
         //drag knight around the page to follow the cursor
         if (this.dragging && this.insideX && this.insideY) {
             this.setState({
@@ -106,10 +104,10 @@ const App = React.createClass({
                     cookie.save('saveCoord', {x: mouseXCoord, y: mouseYCoord}); //persist data
                 }
             })
-
-            //hide highlight on squares
-            ChessActions.clearHighlight();
         }
+
+        //hide highlight on squares
+        ChessActions.clearHighlight();
 
         //update previous knight position
         this.knightLastX = snapX;
@@ -124,7 +122,7 @@ const App = React.createClass({
 
     render() {
         var coords = this.state.coords;
-        var options = ChessStore.getOptions(); //?? this.state.options doesn't work here...
+        var options = ChessStore.getOptions();
 
         return (
         <div className="page" onMouseMove={this.handleMouseMove} onMouseUp={this.destroy}>

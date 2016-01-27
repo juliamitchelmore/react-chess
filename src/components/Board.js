@@ -19,26 +19,29 @@ const Board = React.createClass({
             }
 
             //alternate colours within row
-            var bgColor = (i % 2 == 0 ? startBlack : !startBlack);
+            var bgBlack = (i % 2 == 0 ? startBlack : !startBlack);
 
             //highlight possible drop squares
             var highlight = false;
-            this.props.options.forEach(function(option)
+            if(this.props.options)
             {
-                if(option.x == x && option.y == y)
+                this.props.options.forEach(function(option)
                 {
-                    highlight = true;
-                }
-            });
-
+                    if(option.x == x && option.y == y)
+                    {
+                        highlight = true;
+                    }
+                });
+            }
+            
             //highlight current square on drag so you remember where you started
             var currentSquare = false;
-            if(this.props.coords.x == x && this.props.coords.y == y && this.props.options.length > 0)
+            if(this.props.coords && this.props.coords.x == x && this.props.coords.y == y && this.props.options.length > 0)
             {
                 currentSquare = true;
             }
 
-            squares.push(<Square key={i} background={bgColor} highlight={highlight} current={currentSquare}/>)
+            squares.push(<Square key={i} blackBg={bgBlack} highlight={highlight} current={currentSquare}/>)
 
             x++;
         }

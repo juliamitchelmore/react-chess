@@ -2,12 +2,12 @@ import React from 'react';
 
 const Square = React.createClass({
     propTypes: {
-        background: React.PropTypes.bool
+        blackBg: React.PropTypes.bool
     },
 
     render() {
-        //square is either black or white, depending on 'background' property
-        var bgColor = this.props.background ? 'black' : 'white';
+        //square is either black or white, depending on 'blackBg' property
+        var bgColor = this.props.blackBg ? 'black' : 'white';
 
         //but if it's a possible drop location, it's yellow
         if(this.props.highlight) bgColor = 'yellow';
