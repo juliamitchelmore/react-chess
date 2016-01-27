@@ -17,6 +17,13 @@ describe('ChessStore', () => {
     expect(coords).to.eql({x: 0, y: 0});
   });
 
+  it('sets initial coordinates to cookie value', () => {
+    ChessActions.create({x: 4, y: 7});
+
+    var coords = ChessStore.getCoords();
+    expect(coords).to.eql({x: 4, y: 7});
+  });
+
   it('updates coordinates to input', () => {
     ChessActions.update(1, 4);
 

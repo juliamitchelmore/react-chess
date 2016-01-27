@@ -12,8 +12,7 @@ var _options = [];
 function create(coords) {
     if(coords)
     {
-        _coords.x = coords.x;
-        _coords.y = coords.y;
+        update(coords.x, coords.y);
     }
     else
     {
