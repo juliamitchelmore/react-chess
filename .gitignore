@@ -28,3 +28,12 @@ build/Release
 
 # Bower
 bower_components/
+
+# Node
+node_modules/
+
+# Mac
+.DS_Store
+
+# Build
+dist/
